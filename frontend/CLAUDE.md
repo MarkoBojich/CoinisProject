@@ -5,7 +5,7 @@ Design is described in @DESIGN.md, entities in @../docs/entities.md.
 All paths below are relative to `frontend/`.
 
 ## Feature-first
-Every feature (listings, users, messages…) lives in `src/features/<name>/` and has only the
+Every feature (reports, users, moderation…) lives in `src/features/<name>/` and has only the
 subfolders it needs: `api/`, `components/`, `hooks/`, `types.ts`. Features do not import each
 other; a route in `src/app/routes/` combines them on one page. Shared code goes to
 `src/components/ui` or `src/lib`, and only once at least two features use it.
@@ -17,14 +17,14 @@ Dependency direction: shared code -> features -> app, never the other way around
 - `src/features/<name>/types.ts`: entity types of that feature
 - `src/features/<name>/api/<name>-api.ts`: the only place that fetches data (mock for now)
 - `src/features/<name>/api/use-<name>.ts`: TanStack Query hooks around the API
-- `src/features/<name>/components/`: components of that feature (e.g. `listing-card.tsx`)
+- `src/features/<name>/components/`: components of that feature (e.g. `report-card.tsx`)
 - `src/components/ui/`: shadcn/ui components, added with `pnpm dlx shadcn@latest add <name>` (run inside `frontend/`)
 - `src/components/layout/`: app layout (header, navigation)
 - `src/lib/`: `utils.ts` (`cn`) and `mock-db.ts` (mock database and delay)
 
 ## Rules
 - A feature never imports another feature; `src/components` and `src/lib` never import from `src/features` or `src/app`
-- No barrel `index.ts` files: import the file directly (`@/features/listings/components/listings-list`)
+- No barrel `index.ts` files: import the file directly (`@/features/reports/components/reports-list`)
 - Components and routes never call `*-api.ts` directly, only through a hook from `use-<name>.ts`
 - Use an existing component from `src/components/ui` first, only then create a new one
 - Colors, fonts and radius only from tokens in `src/index.css`, no hex values in components
